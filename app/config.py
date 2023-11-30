@@ -1,5 +1,7 @@
 from app.common import _settings
+import os
 
+basedir = os.path.abspath(os.path.dirname(__file__))
 
 class Config(object):
     API_TITLE = _settings.api_title
@@ -16,6 +18,8 @@ class DevelopmentConfiguration(Config):
     """For Development Environment"""
     DEBUG = True
     HOST = _settings.host
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'flask_dev.db')
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 config_by_name = dict(
     dev=DevelopmentConfiguration
