@@ -13,7 +13,7 @@ class UserController:
         new_user.save_to_db()
 
         if new_user:
-            return {"status": str(new_user)}
+            return {"status": f"User {str(new_user.fname)} is registered succesfully !"}
         else:
             return {"status": "There is an error in the database"}
 

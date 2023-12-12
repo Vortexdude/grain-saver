@@ -49,3 +49,27 @@ class Settings:
     @property
     def openapi_swagger_ui_url(self):
         return self._get_env('OPENAPI_SWAGGER_UI_URL', "https://cdn.jsdelivr.net/npm/swagger-ui-dist/")
+
+    @property
+    def jwt_blacklist_enabled(self) -> bool:
+        return self._get_env("JWT_BLACKLIST_ENABLED", True)
+    
+    @property
+    def jwt_blacklist_tokens(self) -> bool:
+        return self._get_env("JWT_BLACKLIST_TOKEN_CHECKS", True)
+
+    @property
+    def api_spec_option(self):
+        data = {}
+        data['security'] = [{"bearerAuth": []}]
+        data['components'] = {
+                "securitySchemes":
+                    {
+                        "bearerAuth": {
+                            "type":"http",
+                            "scheme": "bearer",
+                            "bearerFormat": "JWT"
+                        }
+                    }
+            }
+        return data

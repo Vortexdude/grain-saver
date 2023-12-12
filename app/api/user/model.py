@@ -18,6 +18,19 @@ class User(db.Model):
             phone,
             password
     ):
+        """"
+        We have created a constructor so that all the variables of the class
+        object will be created when we call 
+        
+        user = User(var1, var2) 
+        above line will create a class with thier properties like 
+
+        user.var1
+        user.var2
+        likewise we will send the object to save_to_db method using self keyword
+        so we can send via save_to_db method
+        and they will be sent to the save_to_db method.
+        """
         self.user_id = str(uuid4())
         self.fname = fname
         self.lname = lname
@@ -28,14 +41,6 @@ class User(db.Model):
     def save_to_db(self) -> None:
         db.session.add(self)
         db.session.commit()
-
-    @classmethod
-    def find_by_fname(cls, fname):
-        return cls.query.filter_by(fname=fname).first()
-
-    @classmethod
-    def find_by_phone(cls, phone):
-        return cls.query.filter_by(phone=phone).first()
 
     @classmethod
     def find_by_filter(cls, phone = None, password = None, fname = None):
@@ -55,3 +60,7 @@ class User(db.Model):
                 return result
         else:
             return None
+
+    @classmethod
+    def to_json(cls):
+        pass

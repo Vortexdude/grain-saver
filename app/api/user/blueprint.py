@@ -2,7 +2,7 @@ from flask.views import MethodView
 from flask_smorest import Blueprint
 from .schema import UserRegisterSchema, LoginSchema
 from .controller import UserController
-
+from flask_jwt_extended import jwt_required
 
 blp = Blueprint("User Operations", __name__, description="Register, login and get user details")
 
@@ -16,6 +16,8 @@ class RegisterUser(MethodView):
 
 @blp.route("/user/<string:fname>")
 class GetUsers(MethodView):
+
+    @jwt_required()
     def get(self, fname):
         """Get user details by their id"""
 

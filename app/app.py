@@ -1,5 +1,6 @@
 from flask import Flask
 from flask_smorest import Api
+from flask_jwt_extended import JWTManager
 from app.api.user import UserBlueprint
 from app.api.events import EventBlueprint
 from app.config import config_by_name
@@ -17,6 +18,7 @@ def register_extension(app):
 
     global api
     api = Api(app)
+    JWTManager(api)
     db.init_app(app)
     with app.app_context():
         db.create_all()
